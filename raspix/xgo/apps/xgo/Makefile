@@ -6,8 +6,8 @@ TASK_OBJS = xgo.o
 TASK = xgo
 BUILD_DIR = $(ROOT_DIR)/build/apps/$(TASK)
 
-CXXFLAGS += -I ../../lib/include
-LDFLAGS += -L../../lib
+CXXFLAGS += -I $(ROOT_DIR)/build/lib/include
+LDFLAGS += -L$(ROOT_DIR)/build/lib
 
 all: $(TASK)
 
