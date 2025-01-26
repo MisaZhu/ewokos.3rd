@@ -12,3 +12,4 @@ clean:
 	cd drivers/fbd; make clean
 	cd drivers/usbd; make clean
 	cd drivers/powerd; make clean
+	rm -fr build
