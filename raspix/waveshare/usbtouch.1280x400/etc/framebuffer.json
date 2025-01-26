@@ -1,7 +1,7 @@
 {
-    "width": 720,
-    "height": 1280,
-    "rotate": 1,
+    "width": 1280,
+    "height": 400,
+    "rotate": 0,
     "depth": 32,
     "logo": "/usr/system/images/logos/ewokos.png"
 }
