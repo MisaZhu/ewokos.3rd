@@ -1,20 +1,16 @@
-ROOT_DIR=../../..
-include $(ROOT_DIR)/make.inc
+ROOT_DIR=../..
+include $(ROOT_DIR)/../make.inc
 
 TASK_OBJS = xgo_buttond.o
 TASK = xgo_buttond
 
-TARGET_DIR = $(ROOTFS_DIR)/drivers/$(MF)
+BUILD_DIR = $(ROOT_DIR)/build/drivers/$(MF)
 
 all: $(TASK)
 
 $(TASK): $(TASK_OBJS)
-	$(LD) -Ttext=100 $(TASK_OBJS) -o $(TASK) $(LDFLAGS)  $(BSP_LFLAGS) $(EWOK_LIBC)
-
-install:
-	mkdir -p $(TARGET_DIR)/
-	cp -r $(TASK) $(TARGET_DIR)/
+	mkdir -p $(BUILD_DIR)
+	$(LD) -Ttext=100 $(TASK_OBJS) -o $(BUILD_DIR)/$(TASK) $(LDFLAGS)  $(BSP_LFLAGS) $(EWOK_LIBC)
 
 clean:
 	rm -f $(TASK_OBJS)
-	rm -f $(TASK)

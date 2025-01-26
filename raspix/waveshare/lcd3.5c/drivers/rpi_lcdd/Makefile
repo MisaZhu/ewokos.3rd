@@ -1,5 +1,5 @@
-ROOT_DIR=../../../..
-include $(ROOT_DIR)/make.inc
+ROOT_DIR=../..
+include $(ROOT_DIR)/../../make.inc
 
 EXTRA_LIBS_DIR = ../../../libs
 
@@ -12,17 +12,13 @@ CFLAGS += -I $(EXTRA_LIBS_DIR)/ili9486/include \
 
 TASK = rpi_lcdd 
 
-TARGET_DIR = $(ROOTFS_DIR)/drivers/$(MF)
+BUILD_DIR = $(ROOT_DIR)/build/drivers/$(MF)
 
 all: $(TASK)
 
 $(TASK): $(TASK_OBJS)
-	$(LD) -Ttext=100 $(TASK_OBJS) -o $(TASK) $(LDFLAGS)  -larch_bcm283x -lfbd -lupng -lgraph -lbsp $(BSP_LFLAGS) -lsconf $(EWOK_LIBC)
-
-install:
-	mkdir -p $(TARGET_DIR)/
-	cp -r $(TASK) $(TARGET_DIR)/
+	mkdir -p $(BUILD_DIR)
+	$(LD) -Ttext=100 $(TASK_OBJS) -o $(BUILD_DIR)/$(TASK) $(LDFLAGS)  -larch_bcm283x -lfbd -lupng -lgraph -lbsp $(BSP_LFLAGS) -lsconf $(EWOK_LIBC)
 
 clean:
 	rm -f $(TASK_OBJS)
-	rm -f $(TASK)

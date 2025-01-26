@@ -2,12 +2,10 @@ export MF=waveshare
 include ../../make.inc
 
 all: 
+	mkdir -p build
 	cd drivers/rpi_lcdd; make
-
-install:
-	mkdir -p $(ROOTFS_DIR)/drivers/$(MF)
-	cd drivers/rpi_lcdd; make install
-	cp -r etc $(ROOTFS_DIR)/
+	cp -r etc build
 
 clean:	
 	cd drivers/rpi_lcdd; make clean
+	rm -fr build

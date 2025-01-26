@@ -2,12 +2,10 @@ export MF=waveshare
 include ../../make.inc
 
 all: 
+	mkdir -p build
 	cd drivers/epaperd; make
-
-install:
-	mkdir -p $(ROOTFS_DIR)/drivers/$(MF)
-	cd drivers/epaperd; make install
-	cp -r etc $(ROOTFS_DIR)/
+	cp -r etc build
 
 clean:	
 	cd drivers/epaperd; make clean
+	rm -fr build

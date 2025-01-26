@@ -2,12 +2,10 @@ export MF=waveshare
 include ../../make.inc
 
 all: 
+	mkdir -p build
 	cd drivers/gt911_touchd; make
-
-install:
-	mkdir -p $(ROOTFS_DIR)/drivers/$(MF)
-	cd drivers/gt911_touchd; make install
-	cp -r etc $(ROOTFS_DIR)/
+	cp -r etc build
 
 clean:	
 	cd drivers/gt911_touchd; make clean
+	rm -fr build

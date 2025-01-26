@@ -2,13 +2,11 @@ export MF=waveshare
 include ../../make.inc
 
 all: 
+	mkdir -p build
 	cd drivers/xpt2046d; make
-
-install:
-	mkdir -p $(ROOTFS_DIR)/drivers/$(MF)
-	cd drivers/xpt2046d; make install
-	cp -r etc $(ROOTFS_DIR)/
+	cp -r etc build
 
 clean:	
 	cd drivers/xpt2046d; make clean
+	rm -fr build
 

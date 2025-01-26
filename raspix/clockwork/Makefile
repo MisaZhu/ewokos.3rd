@@ -2,16 +2,11 @@ export MF=clockwork
 include ../make.inc
 
 all: 
+	mkdir -p build
 	cd drivers/fbd; make
 	cd drivers/usbd; make
 	cd drivers/powerd; make
-
-install: 
-	mkdir -p $(ROOTFS_DIR)/drivers/$(MF)
-	cd drivers/fbd; make install
-	cd drivers/usbd; make install
-	cd drivers/powerd; make install
-	cp -r etc $(ROOTFS_DIR)/
+	cp -r etc build/
 
 clean:	
 	cd drivers/fbd; make clean
