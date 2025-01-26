@@ -3,9 +3,10 @@ export ARCH=arm
 endif
 
 export BSP_LFLAGS= -larch_bcm283x
+export HW=raspix
 
 SDK_DIR= /usr/local/ewokos/$(ARCH)
-ROOTFS_DIR= /usr/local/ewokos/$(ARCH)/rootfs
+ROOTFS_DIR= /usr/local/ewokos/$(ARCH)/$(HW)
 INST_DIR= /usr/local/ewokos
 
 include $(SDK_DIR)/make.rule
