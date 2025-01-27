@@ -27,10 +27,11 @@
 #/bin/session -r &
 
 #/bin/load_font
-/bin/ipcserv /drivers/xserverd              /dev/x
 
-@/sbin/x/xjoystickd /dev/joystick0 &
-@/sbin/x/xmoused /dev/mouse0 &
-@/sbin/x/xim_none &
+/sbin/x/xjoymoused /dev/joystick0 &
+/sbin/x/xmoused /dev/mouse0 &
+/sbin/x/xim_none &
+
+/bin/ipcserv /drivers/xserverd              /dev/x
 
 @/bin/x/xsession misa &
