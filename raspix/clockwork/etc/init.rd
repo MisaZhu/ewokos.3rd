@@ -16,8 +16,6 @@
 
 /bin/ipcserv /drivers/ramfsd                /tmp
 /bin/ipcserv /drivers/nulld                 /dev/null
-/bin/ipcserv /drivers/proc/sysinfod         /proc/sysinfo
-/bin/ipcserv /drivers/proc/stated           /proc/state
 
 #/bin/ipcserv /drivers/raspix/wland          /dev/wl0
 #/bin/ipcserv /drivers/netd                  /dev/net0 /dev/wl0
