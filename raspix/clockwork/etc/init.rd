@@ -27,7 +27,7 @@
 #/bin/load_font
 
 /sbin/x/xjoymoused /dev/joystick0 &
-/sbin/x/xmoused /dev/mouse0 &
+/sbin/x/xmouse /dev/mouse0 &
 /sbin/x/xim_none &
 
 /bin/ipcserv /drivers/xserverd              /dev/x
