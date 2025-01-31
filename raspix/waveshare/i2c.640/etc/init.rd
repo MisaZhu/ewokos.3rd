@@ -1,13 +1,13 @@
 /bin/ipcserv /drivers/raspix/uartd         /dev/tty0
 
 /bin/ipcserv /drivers/raspix/fbd      /dev/fb0
-/bin/ipcserv /drivers/displayd        /dev/display /dev/fb0
-/bin/ipcserv /drivers/fontd           /dev/font
+/bin/ipcserv /drivers/displayd        
+/bin/ipcserv /drivers/fontd           
 
 /bin/ipcserv /drivers/consoled        -u 0
 @set_stdio /dev/console0
 
-/bin/ipcserv /drivers/timerd          /dev/timer
+/bin/ipcserv /drivers/timerd          
 
 /bin/ipcserv /drivers/waveshare/gt911_touchd  /dev/touch0
 

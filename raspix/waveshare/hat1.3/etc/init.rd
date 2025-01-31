@@ -2,8 +2,8 @@
 @set_stdio /dev/tty0
 
 /bin/ipcserv /drivers/waveshare/lcdhatd  /dev/fb0 
-/bin/ipcserv /drivers/displayd           /dev/display /dev/fb0
-/bin/ipcserv /drivers/fontd              /dev/font
+/bin/ipcserv /drivers/displayd           
+/bin/ipcserv /drivers/fontd              
 
 /bin/ipcserv /drivers/consoled           /dev/console0 -u 0
 @set_stdio /dev/console0
@@ -12,7 +12,7 @@
 /bin/ipcserv /drivers/waveshare/joykeybd /dev/keyb0
 /bin/ipcserv /drivers/vjoystickd         /dev/vjoystick /dev/keyb0
 
-/bin/ipcserv /drivers/timerd             /dev/timer
+/bin/ipcserv /drivers/timerd             
 /bin/ipcserv /drivers/nulld              /dev/null
 /bin/ipcserv /drivers/ramfsd             /tmp
 
