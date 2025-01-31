@@ -15,7 +15,7 @@
 /bin/ipcserv /sbin/sessiond
 
 /bin/ipcserv /drivers/xserverd             /dev/x
-@/sbin/x/xtouchd &
+@/sbin/x/xtouch &
 @/sbin/x/xim_vkey &
 
 @/bin/x/xsession misa &

@@ -18,6 +18,6 @@
 
 /bin/ipcserv /drivers/xserverd        /dev/x
 
-@/sbin/x/xtouchd &
+@/sbin/x/xtouch &
 @/sbin/x/xim_vkey 560 168&
 @/bin/x/xsession  misa &
