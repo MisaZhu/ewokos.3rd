@@ -1,18 +1,19 @@
+/bin/ipcserv /drivers/clockwork/powerd      /dev/power0
 /bin/ipcserv /drivers/clockwork/fbd         /dev/fb0
 /bin/ipcserv /drivers/displayd              
 /bin/ipcserv /drivers/fontd                 
 
-/bin/ipcserv /drivers/consoled              /dev/console0
-@set_stdio /dev/console0
+export UX_ID=0
+/bin/ipcserv /drivers/consoled              /dev/klog
+@set_stdio /dev/klog
+export KLOG_DEV=/dev/klog
 
-/bin/ipcserv /drivers/clockwork/powerd      /dev/power0
 /bin/ipcserv /drivers/raspix/uartd          /dev/tty0
 /bin/ipcserv /drivers/timerd                
 
 /bin/ipcserv /drivers/clockwork/usbd        /dev/hid0
 /bin/ipcserv /drivers/raspix/hid_keybd      /dev/keyb0
 /bin/ipcserv /drivers/raspix/hid_moused     /dev/mouse0
-/bin/ipcserv /drivers/raspix/hid_joystickd  /dev/joystick0
 
 /bin/ipcserv /drivers/ramfsd                /tmp
 /bin/ipcserv /drivers/nulld                 /dev/null
@@ -26,7 +27,6 @@
 
 #/bin/load_font
 
-/sbin/x/xjoymoused /dev/joystick0 &
 /sbin/x/xmouse /dev/mouse0 &
 /sbin/x/xim_none &
 
