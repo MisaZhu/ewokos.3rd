@@ -4,8 +4,10 @@
 /bin/ipcserv /drivers/displayd             
 /bin/ipcserv /drivers/fontd                
 
-/bin/ipcserv /drivers/consoled             -u 0
+export UX_ID=0
+/bin/ipcserv /drivers/consoled       
 @set_stdio /dev/console0
+export KLOG_DEV=/dev/console0
 
 /bin/ipcserv /drivers/timerd               
 /bin/ipcserv /drivers/waveshare/xpt2046d   /dev/touch0
