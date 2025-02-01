@@ -31,7 +31,6 @@ class XgoWidget: public Widget {
 			char name[32];
 			snprintf(name, 31, "batt/batt%d.png", i);
 			battIcons[i] = png_image_new(X::getResName(name));
-			klog("%s: %x\n", X::getResName(name), battIcons[i]);
 		}
 	}
 	
@@ -47,7 +46,9 @@ class XgoWidget: public Widget {
 	void bored() {
 		static const uint8_t actNum = 2;
 		static uint8_t acts[actNum] = {XGO_ACT_SHAKE, XGO_ACT_HEIGHT};
-		xgo_cmd(XGO_TYPE_SEND, XGO_CMD_ACT, acts[random_to(actNum)], NULL);
+		uint8_t act = acts[random_to(actNum)];
+		klog("bored... ACT: %d\n", act);
+		xgo_cmd(XGO_TYPE_SEND, XGO_CMD_ACT, act, NULL);
 	}
 protected:
 	void onRepaint(graph_t* g, XTheme* theme, const grect_t& r) {
