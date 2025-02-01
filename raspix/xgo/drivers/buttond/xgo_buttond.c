@@ -58,6 +58,17 @@ static void init_gpio(void) {
 	}
 }
 
+static int check_ux(void* p) {
+	(void)p;
+	ipc_disable();
+	if(bcm283x_gpio_read(23) == 0){
+		core_next_ux();
+	}
+	ipc_enable();
+	proc_usleep(200000);
+	return 0;
+}
+
 int main(int argc, char** argv) {
 	bcm283x_gpio_init();
 	init_gpio();
@@ -68,6 +79,7 @@ int main(int argc, char** argv) {
 	memset(&dev, 0, sizeof(vdevice_t));
 	strcpy(dev.name, "xgo_button");
 	dev.read = xgo_button_read;
+	dev.loop_step = check_ux;
 
 	device_run(&dev, mnt_point, FS_TYPE_CHAR, 0444);
 	return 0;
