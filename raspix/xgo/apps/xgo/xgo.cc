@@ -24,6 +24,7 @@ class XgoWidget: public Widget {
 
 	static const uint8_t EXPR_NUM = 39;
 	graph_t* expressIcons[EXPR_NUM];
+	bool expressLoaded;
 
 	void loadBattIcons() {
 		for(int i=0; i<BATT_NUM; i++) {
@@ -38,8 +39,8 @@ class XgoWidget: public Widget {
 		for(int i=0; i<EXPR_NUM; i++) {
 			char name[32];
 			snprintf(name, 31, "express/%d.png", i+1);
-			expressIcons[i] = png_image_new(X::getResName(name));
-			klog("%s: %x\n", X::getResName(name), expressIcons[i]);
+			graph_t* img = png_image_new(X::getResName(name));
+			expressIcons[i] = img;
 		}
 	}
 
@@ -54,11 +55,18 @@ protected:
 			return;
 
 		graph_fill(g, r.x, r.y, r.w, r.h, 0xff000000);
+		graph_t* img = NULL;
 
-		graph_t* img = expressIcons[expressStep];
-		graph_blt_alpha(img, 0, 0, img->w, img->h,
-				g, r.x + (r.w-img->w)/2, r.y + (r.h-img->h)/2, img->w, img->h, 0xff);
-
+		if(expressLoaded) {
+			img = expressIcons[expressStep];
+			if(img != NULL) {
+				graph_blt_alpha(img, 0, 0, img->w, img->h,
+						g, r.x + (r.w-img->w)/2, r.y + (r.h-img->h)/2, img->w, img->h, 0xff);
+			}
+		}
+		else 
+			graph_draw_text_font(g, r.x + 10, r.y + r.h - 20,
+					"Loading...", theme->getFont(), 20, 0xFFFFFFFF);
 
 		int8_t i = (bt / 10) - 1;
 		if(i < 0)
@@ -76,6 +84,10 @@ protected:
 			xgo_cmd(XGO_TYPE_SEND, XGO_CMD_SET_FORCE_RT, 0x0, NULL);
 			//xgo_cmd(XGO_TYPE_SEND, XGO_CMD_SET_FORCE_ROLL, 0x0, NULL);
 		}
+		else if(timerStep == 1) {
+			loadExpressIcons();
+			expressLoaded = true;
+		}
 		else if((timerStep % (timerFPS*60)) == 0) {
 			bored();
 		}
@@ -83,10 +95,12 @@ protected:
 		uint8_t res[XGO_DATA_MAX];
 		if(xgo_cmd(XGO_TYPE_READ, XGO_CMD_GET_BATT, 1, res) == 0)
 			bt = res[0] & 0xff;
+
+		update();
+
 		expressStep++;
 		if(expressStep >= EXPR_NUM)
 			expressStep = 0;
-		update();
 	}
 
 	bool onIM(xevent_t* ev) {
@@ -135,9 +149,13 @@ public:
 		expressStep = 0;
 		actionStep = 0;
 		demoing = false;
+		expressLoaded = false;
+
 		xgo_init();
 		loadBattIcons();
-		loadExpressIcons();
+
+		for(int i=0; i<EXPR_NUM; i++)
+			expressIcons[i] = NULL;
 	}
 };
 
