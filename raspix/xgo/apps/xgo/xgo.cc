@@ -8,6 +8,8 @@
 #include <ewoksys/kernel_tic.h>
 #include <ewoksys/basic_math.h>
 #include <ewoksys/keydef.h>
+#include <ewoksys/syscall.h>
+#include <sysinfo.h>
 #include <upng/upng.h>
 #include <xgo/xgo.h>
 
@@ -50,6 +52,21 @@ class XgoWidget: public Widget {
 		klog("bored... ACT: %d\n", act);
 		xgo_cmd(XGO_TYPE_SEND, XGO_CMD_ACT, act, NULL);
 	}
+
+	void draw_sys_info(graph_t* g, XTheme* theme, const grect_t& r) {
+		sys_info_t sys_info;
+		sys_state_t sys_state;
+		syscall1(SYS_GET_SYS_INFO, (int32_t)&sys_info);
+		syscall1(SYS_GET_SYS_STATE, (int32_t)&sys_state);
+		uint32_t fr_mem = sys_state.mem.free / (1024*1024);
+		uint32_t t_mem = sys_info.phy_mem_size / (1024*1024);
+		char txt[32] = { 0 };
+		snprintf(txt, 31, "Mem: %dM, Free: %dM", t_mem, fr_mem);
+
+		graph_draw_text_font(g, r.x + 10, r.y + r.h - 20,
+				txt, theme->getFont(), 16, 0xFFFFFFFF);
+	}
+	
 protected:
 	void onRepaint(graph_t* g, XTheme* theme, const grect_t& r) {
 		if(bt < 0)
@@ -65,9 +82,8 @@ protected:
 						g, r.x + (r.w-img->w)/2, r.y + (r.h-img->h)/2, img->w, img->h, 0xff);
 			}
 		}
-		else 
-			graph_draw_text_font(g, r.x + 10, r.y + r.h - 20,
-					"Loading...", theme->getFont(), 20, 0xFFFFFFFF);
+
+		draw_sys_info(g, theme, r);
 
 		int8_t i = (bt / 10) - 1;
 		if(i < 0)
