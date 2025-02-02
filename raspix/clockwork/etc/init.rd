@@ -23,7 +23,14 @@ export KLOG_DEV=/dev/klog
 #@/bin/telnetd &
 
 /bin/ipcserv /sbin/sessiond
-#/bin/session -r &
+
+export UX_ID=1
+/bin/ipcserv /drivers/consoled              /dev/console1 -i /dev/keyb0
+/bin/session -r -t /dev/console1 &
+
+export UX_ID=2
+/bin/ipcserv /drivers/consoled              /dev/console2 -i /dev/keyb0
+/bin/session -r -t /dev/console2 &
 
 #/bin/load_font
 
