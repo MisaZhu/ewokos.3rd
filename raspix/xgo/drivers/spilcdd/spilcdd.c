@@ -36,19 +36,19 @@ static int32_t init(uint32_t w, uint32_t h, uint32_t dep) {
   */
 int main(int argc, char** argv) {
 	int lcd_rst = 27;
-	int lcd_dc = 25;
+	int lcd_rs = 25;
 	int lcd_bl = 0;
 
 	const char* mnt_point = argc > 1 ? argv[1]: "/dev/fb0";
 
 	if(argc > 4) {
 		lcd_rst = atoi(argv[2]);
-		lcd_dc = atoi(argv[3]);
+		lcd_rs = atoi(argv[3]);
 		lcd_bl = atoi(argv[4]);
 	}
 
 	bcm283x_spi_init();
-	lcd_init(lcd_rst, lcd_dc, lcd_bl, 4);
+	lcd_init(lcd_rst, lcd_rs, lcd_bl, 4);
 
 	fbd_t fbd;
 	fbd.splash = NULL;

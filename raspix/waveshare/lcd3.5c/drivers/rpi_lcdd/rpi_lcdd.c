@@ -80,17 +80,17 @@ static int tp_read(int fd, int from_pid, fsinfo_t* node,
 }
 
 int main(int argc, char** argv) {
-	const int lcd_dc = 24;
+	const int lcd_rs = 24;
 	const int lcd_cs = 8;
-  const int lcd_rst = 25;
-  const int tp_cs = 7;
-  const int tp_irq = 17;
+	const int lcd_rst = 25;
+	const int tp_cs = 7;
+	const int tp_irq = 17;
 
 	const char* mnt_point = argc > 1 ? argv[1]: "/dev/rpi_lcd";
 
 	bcm283x_spi_init();
 	xpt2046_init(tp_cs, tp_irq, 64);
-	ili9486_init(lcd_dc, lcd_cs, lcd_rst, 2);
+	ili9486_init(lcd_rs, lcd_cs, lcd_rst, 2);
 
 	uint32_t sz = LCD_HEIGHT*LCD_WIDTH*4;
 	fb_dma_t dma;
