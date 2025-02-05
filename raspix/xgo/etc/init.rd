@@ -16,9 +16,9 @@ set_stdio /dev/console0
 @export UX_ID=7
 @/bin/ipcserv /drivers/xserverd       /dev/x
 
-@/sbin/x/xim_none   /dev/keyb0 &
-#@/sbin/x/xim_vkey 320 120&
+@/bin/bgrun /sbin/x/xim_none   /dev/keyb0 
+#@/bin/bgrun /sbin/x/xim_vkey 320 120
 
-#@/bin/shell /etc/x/xinit.rd &
+#@/bin/shell /etc/x/xinit.rd 
 setux 7
-@/apps/xgo/xgo &
+@/bin/bgrun /apps/xgo/xgo 

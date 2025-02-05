@@ -21,10 +21,10 @@
 
 @/bin/ipcserv /sbin/sessiond
 
-@/sbin/x/xim_none   /dev/vjoystick &
-@/sbin/x/xmouse     /dev/mouse0 &
-@/sbin/x/xim_vkey &
+@/bin/bgrun /sbin/x/xim_none   /dev/vjoystick 
+@/bin/bgrun /sbin/x/xmouse     /dev/mouse0 
+@/bin/bgrun /sbin/x/xim_vkey 
 
 #@/bin/load_font
 @/bin/ipcserv /drivers/xserverd           /dev/x
-@/bin/x/xsession misa &
+@/bin/bgrun /bin/x/xsession misa 

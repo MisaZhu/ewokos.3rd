@@ -16,11 +16,11 @@
 @/bin/ipcserv /drivers/ramfsd               /tmp
 
 @/bin/ipcserv sbin/sessiond
-#@/bin/session -r &
+#@/bin/bgrun /bin/session -r 
 
 @/bin/ipcserv /drivers/xserverd             /dev/x
 
-@/sbin/x/xtouch &
-@/sbin/x/xim_vkey &
+@/bin/bgrun /sbin/x/xtouch 
+@/bin/bgrun /sbin/x/xim_vkey 
 
-@/bin/x/xsession misa &
+@/bin/bgrun /bin/x/xsession misa 

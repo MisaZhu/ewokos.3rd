@@ -1,7 +1,7 @@
 #@/bin/ipcserv /drivers/raspix/spi2uartd     /dev/tty0 nr
 @/bin/ipcserv /drivers/raspix/uartd     /dev/tty0 nr
 @/bin/ipcserv /sbin/sessiond
-@/bin/session -r -t /dev/tty0 &
+@/bin/bgrun /bin/session -r -t /dev/tty0 
 
 @/bin/ipcserv /drivers/raspix/fbd           /dev/fb0
 @/bin/ipcserv /drivers/displayd             
@@ -19,7 +19,7 @@ set_stdio /dev/console0
 
 
 @/bin/ipcserv /drivers/xserverd             /dev/x
-@/sbin/x/xtouch &
-@/sbin/x/xim_vkey &
+@/bin/bgrun /sbin/x/xtouch 
+@/bin/bgrun /sbin/x/xim_vkey 
 
-@/bin/x/xsession misa &
+@/bin/bgrun /bin/x/xsession misa 
