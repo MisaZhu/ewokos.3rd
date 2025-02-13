@@ -11,6 +11,7 @@
 
 // SCLK --- PIN56 --- GPIO3
 // SDIN --- PIN58 --- GPIO2
+#define DBG(...)	do{}while(0)
 
 int wm8960_write(uint8_t reg, uint16_t value) {
 	uint8_t data[2];
@@ -29,7 +30,7 @@ int wm8960_init(void){
 
     res = wm8960_write(0x0f, 0x0000);
     if (res == 0)
-        printf("wm8960 reset completed");
+        DBG("wm8960 reset completed");
     else
         return res;
 
@@ -38,14 +39,14 @@ int wm8960_init(void){
     res += wm8960_write(POWER_MANAGEMENT_2, 1 << 8 | 1 << 7 | 1 << 6 | 1 << 5 | 1 << 4 | 1 << 3 | 1 << 2 | 1);
     res += wm8960_write(POWER_MANAGEMENT_3, 1 << 5 | 1 << 4 | 1 << 3 | 1 << 2);
     if (res == 0)
-        printf("wm8960 power 1,2,3 completed\n");
+        DBG("wm8960 power 1,2,3 completed\n");
     else
         return res;
 
     res = wm8960_write(CLOCKING_1, 0x00DD); // Select 011011101
     res = wm8960_write(CLOCKING_2, 0x0080); // Select 011011101
     if (res == 0)
-        printf("wm8960 Configure clock\n");
+        DBG("wm8960 Configure clock\n");
     else
         return res;
 
@@ -60,7 +61,7 @@ int wm8960_init(void){
     // bit1,2 De-emphasis 00 = No de-emphasis
     res = wm8960_write(ADC_AND_DAC_CONTROL_1, 0x0000);
     if (res == 0)
-        printf("wm8960 Configure ADC/DAC\n");
+        DBG("wm8960 Configure ADC/DAC\n");
     else
         return res;
 
@@ -68,7 +69,7 @@ int wm8960_init(void){
     // I2S format 16 bits word length
     res = wm8960_write(DIGITAL_AUDIO_INTERFACE, 0x0002);
     if (res == 0)
-        printf("wm8960 Configure audio interface\n");
+        DBG("wm8960 Configure audio interface\n");
     else
         return res;
 
@@ -76,7 +77,7 @@ int wm8960_init(void){
     res = wm8960_write(LOUT1_VOLUME, 0x0079 | 0x0100);  //LOUT1 Volume Set
     res += wm8960_write(ROUT1_VOLUME, 0x0079 | 0x0100); //ROUT1 Volume Set
     if (res == 0)
-        printf("wm8960 Configure HP_L and HP_R OUTPUTS\n");
+        DBG("wm8960 Configure HP_L and HP_R OUTPUTS\n");
     else
         return res;
 
@@ -84,14 +85,14 @@ int wm8960_init(void){
     res = wm8960_write(LOUT2_VOLUME, 0x0079 | 0x0100); //Left Speaker Volume
     res += wm8960_write(ROUT2_VOLUME, 0x0079 | 0x0100); //Right Speaker Volume
     if (res == 0)
-        printf("wm8960 Configure SPK_RP and SPK_RN\n");
+        DBG("wm8960 Configure SPK_RP and SPK_RN\n");
     else
         return res;
 
     // Enable the OUTPUTS
     res = wm8960_write(CLASS_D_CONTROL_1, 0x00F7); //Enable Class D Speaker Outputs
     if (res == 0)
-        printf("wm8960 Enable Class D Speaker Outputs\n");
+        DBG("wm8960 Enable Class D Speaker Outputs\n");
     else
         return res;
 
@@ -99,7 +100,7 @@ int wm8960_init(void){
     res = wm8960_write(LEFT_DAC_VOLUME, 0x00EF | 0x0100);
     res += wm8960_write(RIGHT_DAC_VOLUME, 0x00EF | 0x0100);
     if (res == 0)
-        printf("wm8960 Configure DAC volume\n");
+        DBG("wm8960 Configure DAC volume\n");
     else
         return res;
 
@@ -107,7 +108,7 @@ int wm8960_init(void){
     res = wm8960_write(LEFT_OUT_MIX, 1 << 8 | 1 << 7);
     res += wm8960_write(RIGHT_OUT_MIX, 1 << 8 | 1 << 7);
     if (res == 0)
-        printf("wm8960 Configure MIXER %d\n", res);
+        DBG("wm8960 Configure MIXER %d\n", res);
     else
         return res;
 
@@ -116,7 +117,7 @@ int wm8960_init(void){
     res += wm8960_write(ADDITIONAL_CONTROL_1, 0x01C3);
     res += wm8960_write(ADDITIONAL_CONTROL_4, 0x0009); //0x000D,0x0005
     if (res == 0)
-        printf("wm8960 Jack Detect %d\n", res);
+        DBG("wm8960 Jack Detect %d\n", res);
     else
         return res;
 
@@ -138,7 +139,7 @@ int wm8960_init(void){
     wm8960_write(ADCL_SIGNAL_PATH, 0X0020 | 1 << 8 | 1 << 3);
     wm8960_write(ADCR_SIGNAL_PATH, 0X0020 | 1 << 8 | 1 << 3);
 
-	printf("init done\n");
+	DBG("init done\n");
 
     return 0;
 }
