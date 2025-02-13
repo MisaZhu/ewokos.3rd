@@ -10,6 +10,7 @@ set_stdio /dev/console0
 @/bin/ipcserv /drivers/timerd         
 
 @/bin/ipcserv /drivers/xgo/xgo_buttond    /dev/keyb0
+@/bin/ipcserv /drivers/xgo/soundd    /dev/sound0
 @/bin/ipcserv /drivers/raspix/uartd   /dev/tty0
 
 
