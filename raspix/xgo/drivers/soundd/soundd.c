@@ -36,7 +36,7 @@ static int audio_write(int fd, int from_pid, fsinfo_t* node,
 	(void)p;
 
 	size = dma_chain_push(buf, size); 
-	return size;
+	return size?size:VFS_ERR_RETRY;
 }
 
 static int loop(void* p) {
