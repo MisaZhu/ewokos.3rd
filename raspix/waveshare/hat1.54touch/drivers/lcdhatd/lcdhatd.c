@@ -14,7 +14,7 @@
 #define UDOUBLE uint32_t
 
 #define LCD_CS   8
-#define LCD_RST  24
+#define LCD_RST  27
 #define LCD_DC   25
 #define LCD_BL   18
 
@@ -298,13 +298,13 @@ int  do_flush(const void* buf, uint32_t size) {
 	if(size < LCD.WIDTH * LCD.HEIGHT* 4)
 		return -1;
 
+	//LCD_1in3_SetWindows(0, 0, LCD.WIDTH, LCD.HEIGHT);
 	LCD_DC_1;
 	bcm283x_spi_activate(1);
 
 	uint32_t *src = (uint32_t*)buf;
 	uint32_t sz = LCD.HEIGHT*LCD.WIDTH;
 	uint32_t i, j = 0;
-	//LCD_1in3_SetWindows(0, 0, LCD.WIDTH, LCD.HEIGHT);
 
 #define SPI_FIFO_SIZE  64
 	uint16_t c8[SPI_FIFO_SIZE/2];
