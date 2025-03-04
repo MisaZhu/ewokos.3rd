@@ -30,7 +30,7 @@ static int32_t init(uint32_t w, uint32_t h, uint32_t dep) {
 	return 0;
 }
 
-/*LCD_RS	Instruction/Data Register selection
+/*LCD_DC	Instruction/Data Register selection
   LCD_CS    LCD chip selection, low active
   LCD_RST   LCD reset
   */

@@ -6,7 +6,7 @@
 extern uint16_t LCD_HEIGHT;
 extern uint16_t LCD_WIDTH;
 
-/*LCD_RS	Instruction/Data Register selection
+/*LCD_DC	Instruction/Data Register selection
   LCD_CS    LCD chip selection, low active
   LCD_RST   LCD reset
   */

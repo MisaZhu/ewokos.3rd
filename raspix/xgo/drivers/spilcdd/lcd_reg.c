@@ -8,7 +8,7 @@
 
 #include "lcd_reg.h"
 
-static int LCD_RS =	25;
+static int LCD_DC =	25;
 static int LCD_BL	= 0;
 static int LCD_RST = 27;
 static int SPI_DIV = 8;
@@ -33,13 +33,13 @@ static inline void lcd_spi_send(uint8_t byte) {
 
 /* Send command (char) to LCD  - OK */
 static inline void lcd_write_commmand(uint8_t command) {
-	bcm283x_gpio_write(LCD_RS, 0);
+	bcm283x_gpio_write(LCD_DC, 0);
 	lcd_spi_send(command);
 }
 
 /* Send Data (char) to LCD */
 static inline void lcd_write_data(uint8_t Data) {
-	bcm283x_gpio_write(LCD_RS, 1);
+	bcm283x_gpio_write(LCD_DC, 1);
 	lcd_spi_send(Data);
 }
 
@@ -85,7 +85,7 @@ static inline void lcd_show(void) {
 	lcd_write_data(0x70);
 	lcd_set_window(0, 0, LCD_WIDTH, LCD_HEIGHT);
 
-	bcm283x_gpio_write(LCD_RS, 1);
+	bcm283x_gpio_write(LCD_DC, 1);
 	bcm283x_spi_activate(1);
 	uint8_t* p = (uint8_t*)_lcd_buffer;
 	for(i = 0; i < LCD_WIDTH * LCD_HEIGHT * 2; i+=64) {
@@ -116,11 +116,11 @@ void lcd_flush(const void* buf, uint32_t size) {
 
 void lcd_init(int pin_rst, int pin_dc, int pin_bl, int cdiv) {
 	LCD_RST = pin_rst;
-	LCD_RS = pin_dc;
+	LCD_DC = pin_dc;
 	LCD_BL = pin_bl;
 	bcm283x_gpio_init();
 	bcm283x_gpio_config(LCD_RST, GPIO_OUTPUT);
-	bcm283x_gpio_config(LCD_RS, GPIO_OUTPUT);
+	bcm283x_gpio_config(LCD_DC, GPIO_OUTPUT);
 	//bcm283x_gpio_config(LCD_BL, GPIO_OUTPUT);
 	//bcm283x_gpio_write(LCD_BL, 1);
 

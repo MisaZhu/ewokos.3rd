@@ -14,8 +14,8 @@
 #define UDOUBLE uint32_t
 
 #define LCD_CS   8
-#define LCD_RST  25
-#define LCD_RS   24
+#define LCD_RST  24
+#define LCD_DC   25
 #define LCD_BL   18
 
 #define DEV_Delay_ms(x) proc_usleep((x)*1000)
@@ -27,8 +27,8 @@
 #define LCD_RST_0		DEV_Digital_Write(LCD_RST,0)
 #define LCD_RST_1		DEV_Digital_Write(LCD_RST,1)
 
-#define LCD_DC_0		DEV_Digital_Write(LCD_RS,0)
-#define LCD_DC_1		DEV_Digital_Write(LCD_RS,1)
+#define LCD_DC_0		DEV_Digital_Write(LCD_DC,0)
+#define LCD_DC_1		DEV_Digital_Write(LCD_DC,1)
 
 #define LCD_BL_0		DEV_Digital_Write(LCD_BL,0)
 #define LCD_BL_1		DEV_Digital_Write(LCD_BL,1)
@@ -136,8 +136,8 @@ parameter:
 static void LCD_InitReg(void) {
 	LCD_SendCommand(0x11); 
 	DEV_Delay_ms(120);
-	// LCD_SendCommand(0x36);
-	// LCD_SendData_8Bit(0x00);
+	LCD_SendCommand(0x36);
+	LCD_SendData_8Bit(0x00);
 
 	LCD_SendCommand(0x3A); 
 	LCD_SendData_8Bit(0x05);
@@ -217,7 +217,7 @@ parameter:
  ********************************************************************************/
 static void LCD_1in3_Init(UBYTE rot, uint32_t w, uint32_t h) {
 	//Turn on the backlight
-	LCD_BL_1;
+	//LCD_BL_1;
 
 	//Hardware reset
 	LCD_Reset();
@@ -278,8 +278,8 @@ void lcd_init(uint32_t w, uint32_t h, uint32_t rot) {
 
 	bcm283x_gpio_config(LCD_CS, 1);
 	bcm283x_gpio_config(LCD_RST, 1);
-	bcm283x_gpio_config(LCD_RS, 1);
-	bcm283x_gpio_config(LCD_BL, 1);
+	bcm283x_gpio_config(LCD_DC, 1);
+	//bcm283x_gpio_config(LCD_BL, 1);
 
 	bcm283x_spi_init();
 	bcm283x_spi_set_div(4);
@@ -304,7 +304,7 @@ int  do_flush(const void* buf, uint32_t size) {
 	uint32_t *src = (uint32_t*)buf;
 	uint32_t sz = LCD.HEIGHT*LCD.WIDTH;
 	uint32_t i, j = 0;
-	LCD_1in3_SetWindows(0, 0, LCD.WIDTH, LCD.HEIGHT);
+	//LCD_1in3_SetWindows(0, 0, LCD.WIDTH, LCD.HEIGHT);
 
 #define SPI_FIFO_SIZE  64
 	uint16_t c8[SPI_FIFO_SIZE/2];

@@ -15,7 +15,7 @@
 
 #define LCD_CS   8
 #define LCD_RST  27
-#define LCD_RS   25
+#define LCD_DC   25
 #define LCD_BL   24
 
 #define DEV_Delay_ms(x) proc_usleep((x)*1000)
@@ -27,8 +27,8 @@
 #define LCD_RST_0		DEV_Digital_Write(LCD_RST,0)
 #define LCD_RST_1		DEV_Digital_Write(LCD_RST,1)
 
-#define LCD_DC_0		DEV_Digital_Write(LCD_RS,0)
-#define LCD_DC_1		DEV_Digital_Write(LCD_RS,1)
+#define LCD_DC_0		DEV_Digital_Write(LCD_DC,0)
+#define LCD_DC_1		DEV_Digital_Write(LCD_DC,1)
 
 #define LCD_BL_0		DEV_Digital_Write(LCD_BL,0)
 #define LCD_BL_1		DEV_Digital_Write(LCD_BL,1)
@@ -278,7 +278,7 @@ void lcd_init(uint32_t w, uint32_t h, uint32_t rot) {
 
 	bcm283x_gpio_config(LCD_CS, 1);
 	bcm283x_gpio_config(LCD_RST, 1);
-	bcm283x_gpio_config(LCD_RS, 1);
+	bcm283x_gpio_config(LCD_DC, 1);
 	bcm283x_gpio_config(LCD_BL, 1);
 
 	bcm283x_spi_init();
