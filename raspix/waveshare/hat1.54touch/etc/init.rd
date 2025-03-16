@@ -12,7 +12,6 @@
 
 @/bin/ipcserv /drivers/waveshare/gamekbd  /dev/keyb0
 @/bin/ipcserv /drivers/vjoystickd         /dev/vjoystick /dev/keyb0
-@/bin/ipcserv /drivers/joymoused         /dev/mouse0 /dev/vjoystick 
 
 @/bin/ipcserv /drivers/timerd             
 @/bin/ipcserv /drivers/nulld              /dev/null
@@ -21,7 +20,7 @@
 @/bin/ipcserv /sbin/sessiond
 
 @/bin/bgrun /sbin/x/xim_none   /dev/vjoystick 
-@/bin/bgrun /sbin/x/xmouse     /dev/mouse0 
+@/bin/bgrun /sbin/x/xmouse     /dev/vjoystick 
 @/bin/bgrun /sbin/x/xim_vkey 
 
 #@/bin/load_font
